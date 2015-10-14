@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "##################################################\n#  Data Cleaning Script\n##################################################\n\nlibrary(readxl)\nlibrary(stringr)\nlibrary(codemog)\nlibrary(dplyr)\nlibrary(car)\n\nrucc=read_excel(\"/Users/robkemp/Desktop/Demography Office R/ruralUrbanMigration_CO/ruralurbancodes2013.xls\")%>%\n  mutate(countyfips=as.numeric(str_sub(FIPS, -3,-1)),\n         state=as.numeric(str_sub(FIPS, 1,2)))%>%\n  filter(state==8)\n\ndata=county_profile%>%\n  select(countyfips,year,householdPopulation, groupQuartersPopulation, netMigration)%>%\n  mutate(totalPopulation=householdPopulation+groupQuartersPopulation,\n         netMigrationRate=netMigration/totalPopulation)%>%\n  inner_join(rucc)%>%\n  mutate(rucc_short=recode(RUCC_2013, \"1:3='Metro'; 4='Rural Adjacent'; 5='Rural Not Adjacent'; 6='Rural Adjacent';\n                              7='Rural Not Adjacent'; 8='Rural Adjacent'; 9='Rural Not Adjacent'\"))%>%\n  select(countyfips, county=County_Name, year, totalPopulation, netMigration, netMigrationRate, RUCC_2013,rucc_short, Description)\n",
+    "created" : 1444449773567.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "903472295",
+    "id" : "59119B16",
+    "lastKnownWriteTime" : 1444450251,
+    "path" : "~/Desktop/Demography Office R/ruralUrbanMigration_CO/Data Cleaning Script 1.R",
+    "project_path" : "Data Cleaning Script 1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

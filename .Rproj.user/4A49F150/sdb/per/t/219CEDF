@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "###########################\n#  EDA Script\n##########################\n\nlibrary(ggplot2)\n\nsource(\"Data Cleaning Script 1.R\")\n\n\n##### RUCC Changes over time\n\nts=data%>%\n  group_by(rucc_short, year)%>%\n  mutate(totalPopulation=ifelse(is.na(totalPopulation), 0, totalPopulation),\n         netMigration=ifelse(is.na(netMigration), 0, netMigration))%>%\n  summarize(totalPopulation=sum(totalPopulation),\n            netMigration=sum(netMigration))%>%\n  mutate(netMigrationRate=netMigration/totalPopulation)\n\np1=ts%>%\n  filter(year>2000)%>%\n  ggplot( aes(x=year, y=netMigrationRate, color=rucc_short))+\n  geom_line()\np1",
+    "created" : 1444450043227.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3255662750",
+    "id" : "219CEDF",
+    "lastKnownWriteTime" : 1444450653,
+    "path" : "~/Desktop/Demography Office R/ruralUrbanMigration_CO/EDA Script.R",
+    "project_path" : "EDA Script.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
