@@ -18,7 +18,7 @@ ts=data%>%
   mutate(netMigrationRate=netMigration/totalPopulation)
 
 p1=ts%>%
-  filter(year>2000)%>%
+#   filter(year>2000)%>%
   ggplot( aes(x=year, y=netMigrationRate, color=rucc_short))+
   geom_line()
 p1
